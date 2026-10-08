@@ -1,11 +1,29 @@
-import os
-from google import genai
+from src.ingestion.pipeline import IngestionPipeline
 
-client = genai.Client()
 
-chat = client.chats.create(model = "gemini-3.8-flash")
+def main():
+    pipeline = IngestionPipeline()
+    sample_text = (
+        "Apache Kafka uses consumer groups to allow a pool of processes to divide "
+        "the work of processing and consuming data. Partition ownership is rebalanced "
+        "dynamically when members join or leave the group. Kafka topic partitions ensure "
+        "horizontal scaling and ordered messaging guarantees across consumer instances."
+    )
 
-response = chat.send_message("Explain an AI Service")
+    records = pipeline.process_document(
+        tenant_id="tenant_acme",
+        doc_id="kafka_guide_v1",
+        text=sample_text,
+        extra_metadata={"category": "infrastructure", "environment": "production"}
+    )
 
-print("\n----AI response----\n")
-print(response.text)
+    print("--- Ingestion Pipeline Integration Output ---")
+    print(f"✅ Records generated: {len(records)}")
+    print(f"🔑 Chunk ID (SHA-256): {records[0].chunk_id}")
+    print(f"🏢 Tenant ID: {records[0].tenant_id}")
+    print(f"📊 Vector Dimension: {len(records[0].embedding)}")
+    print(f"📄 First 3 Floats: {records[0].embedding[:3]}")
+
+
+if __name__ == "__main__":
+    main()
