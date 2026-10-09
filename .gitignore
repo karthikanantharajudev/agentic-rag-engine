@@ -10,3 +10,9 @@ __pycache__/
 .venv/
 venv/
 env/
+
+# Python package build artifacts
+*.egg-info/
+dist/
+build/
+.eggs/
