@@ -1,7 +1,7 @@
 from typing import List, Dict, Any
-from src.ingestion.models import DocumentChunk, VectorRecord
-from src.ingestion.chunker import SlidingWindowChunker
-from src.ingestion.embedder import GeminiEmbedder
+from ingestion.models import DocumentChunk, VectorRecord
+from ingestion.chunker import SlidingWindowChunker
+from ingestion.embedder import GeminiEmbedder
 
 
 class IngestionPipeline:

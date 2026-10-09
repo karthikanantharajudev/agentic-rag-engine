@@ -1,6 +1,6 @@
 import hashlib
 from typing import List, Dict, Any
-from src.ingestion.models import DocumentChunk
+from ingestion.models import DocumentChunk
 from config.settings import settings
 
 
